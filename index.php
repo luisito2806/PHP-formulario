@@ -8,7 +8,7 @@
     <h1>Catálogo de Electrónica y Línea Blanca</h1>
 
     <?php
-    // Catálogo con productos de mayor precio para probar el descuento mayor a 500
+    
     $catalogo = [
         "Smart TV 55 Pulgadas" => 6500.00,
         "Consola de Videojuegos" => 8900.00,
@@ -20,7 +20,6 @@
     ];
     ?>
 
-    <!-- Formulario usando GET con checkboxes para marcar varios productos -->
     <form method="GET">
         <label for="cliente">Nombre del Cliente:</label>
         <input type="text" id="cliente" name="cliente" required>
@@ -29,7 +28,7 @@
         <p><strong>Selecciona los productos que deseas comprar:</strong></p>
         <?php foreach ($catalogo as $nombreProducto => $precioProducto): ?>
             <label>
-                <!-- Usamos un arreglo en el name (productos[]) para recibir varios valores por GET -->
+                
                 <input type="checkbox" name="productos[]" value="<?php echo $nombreProducto; ?>">
                 <?php echo $nombreProducto . " - $" . number_format($precioProducto, 2); ?>
             </label>
@@ -40,7 +39,7 @@
     </form>
     
     <?php
-    // Procesamiento cuando se envían los datos por GET
+  
     if (isset($_GET['cliente'])) {
         $cliente = trim((string) $_GET['cliente']);
         $productosSeleccionados = $_GET['productos'] ?? [];
@@ -54,9 +53,9 @@
             echo "<p><strong>Cliente:</strong> " . htmlspecialchars($cliente, ENT_QUOTES, "UTF-8") . "</p>";
             echo "<ul>";
 
-            // Recorremos los productos que el usuario seleccionó
+            
             foreach ($productosSeleccionados as $prod) {
-                // Verificamos que el producto exista en nuestro catálogo por seguridad
+               
                 if (array_key_exists($prod, $catalogo)) {
                     $precioUnitario = $catalogo[$prod];
                     $subtotalGeneral += $precioUnitario;
@@ -68,7 +67,7 @@
 
             $descuento = 0;
 
-            // Si el subtotal de todos los productos es mayor a 500, aplicamos el 10% de descuento
+            
             if ($subtotalGeneral > 500) {
                 $descuento = $subtotalGeneral * 0.10;
             }
